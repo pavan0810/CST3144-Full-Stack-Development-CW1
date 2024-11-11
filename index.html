@@ -12,11 +12,17 @@
     <div id="courses">
         <h1>Tutor Hub</h1>
         <!-- Checkout Button -->
-        <button v-on:click="toggleShowCourses">
+        <button v-if="countItemInCart" v-on:click="toggleShowCourses">
             Checkout
             <span class="fa fa-shopping-cart"></span>
             {{countItemInCart}}
         </button>
+        <div v-else>
+            <button disabled>
+                Checkout
+                <span class="fa fa-shopping-cart"></span>
+            </button>
+        </div>
 
         <!-- All courses available -->
         <div v-if="showCourses">
