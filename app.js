@@ -1,10 +1,13 @@
 new Vue({
     el: '#courses',
     data: {
-        courses: courses
+        courses: courses,
+        showCourses: true
     },
     methods: {
-
+        toggleShowCourses() {
+            this.showCourses = !this.showCourses
+        }
     },
     computed: {
 

@@ -4,19 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="courses.js"></script>
     <title>Courses Shop</title>
 </head>
 <body>
     <div id="courses">
-        <div v-for="course in courses">
-            <figure>
-                <img v-bind:src="course.image" width="300" height="200"/>
-            </figure>
-            <h2 v-text="course.subject"></h2>
-            <p>Price: {{course.price}}</p>
-            <p>Location: {{course.location}}</p>
-            <p>Spaces: {{course.spaces}}</p>
+        <h1>Tutor Hub</h1>
+        <!-- Checkout Button -->
+        <button v-on:click="toggleShowCourses">
+            Checkout
+            <span class="fa fa-shopping-cart"></span>
+        </button>
+
+        <!-- All courses available -->
+        <div v-if="showCourses">
+            <h2>Courses</h2>
+            <div v-for="course in courses">
+                <figure>
+                    <img v-bind:src="course.image" width="300" height="200"/>
+                </figure>
+                <h2 v-text="course.subject"></h2>
+                <p>Price: {{course.price}}</p>
+                <p>Location: {{course.location}}</p>
+                <p>Spaces: {{course.spaces}}</p>
+            </div>
+        </div>
+
+        <!-- Checkout -->
+        <div v-else>
+            <h2>Checkout</h2>
         </div>
     </div>
     <script src="app.js"></script>
