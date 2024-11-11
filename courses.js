@@ -1,5 +1,6 @@
 let courses = [
     {
+        id: 1,
         subject:"Mathematics",
         location:"Curepipe",
         price: 700,
@@ -7,6 +8,7 @@ let courses = [
         spaces: 10
     },
     {
+        id: 2,
         subject:"Physics",
         location:"Rose Hill",
         price: 1500,
@@ -14,6 +16,7 @@ let courses = [
         spaces: 10
     },
     {
+        id: 3,
         subject:"English",
         location:"Rose Belle",
         price: 450,

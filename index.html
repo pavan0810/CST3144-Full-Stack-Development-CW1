@@ -15,6 +15,7 @@
         <button v-on:click="toggleShowCourses">
             Checkout
             <span class="fa fa-shopping-cart"></span>
+            {{countItemInCart}}
         </button>
 
         <!-- All courses available -->
@@ -28,6 +29,11 @@
                 <p>Price: {{course.price}}</p>
                 <p>Location: {{course.location}}</p>
                 <p>Spaces: {{course.spaces}}</p>
+                <button v-if="countSpacesAvailable(course)" v-on:click="addToCart(course)">Add To Cart</button>
+                <div v-else>
+                    <button disabled> Add To Cart</button>
+                    <span>No more spaces available</span>
+                </div>
             </div>
         </div>
 
