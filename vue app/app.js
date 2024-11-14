@@ -15,7 +15,7 @@ var courseApp = new Vue({
             this.showCourses = !this.showCourses
         },
         addToCart(course) {
-            this.cart.push(course.id)
+            this.cart.push(course)
             course.spaces -= 1
         },
         countSpacesAvailable(course) {
@@ -23,11 +23,27 @@ var courseApp = new Vue({
         },
         placeOrder() {
             alert('order has been placed')
+        },
+        removeCourse(){
+
         }
     },
     computed: {
         countItemInCart() {
             return this.cart.length || ""
         },
+        validateFormInput() {
+            var nameRegEx = /^[a-zA-Z\s-]+$/
+            var numbersOnlyRegex = /^[0-9]+$/
+            if(this.order.firstName === "" || this.order.lastName === "" || this.order.phoneNumber === "") {
+                return false
+            }
+
+            if(nameRegEx.test(this.order.firstName) && nameRegEx.test(this.order.lastName) && 
+                numbersOnlyRegex.test(this.order.phoneNumber)) {
+                return true
+            }
+            return false
+        }
     }
 });

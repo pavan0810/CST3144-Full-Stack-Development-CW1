@@ -46,6 +46,17 @@
         <!-- Checkout -->
         <div v-else>
             <h2>Checkout</h2>
+            <!-- displaying items in cart -->
+            <div v-for="course in cart">
+                <figure>
+                    <img v-bind:src="course.image" width="300" height="200"/>
+                </figure>
+                <h2 v-text="course.subject"></h2>
+                <p>Price: {{course.price}}</p>
+                <p>Location: {{course.location}}</p>
+                <p>Spaces: {{course.spaces}}</p>
+                <button v-on:click="removeCourse">Remove</button>
+            </div>
             <!-- form for checkout -->
             <div>
                 <strong>First Name:</strong>
@@ -62,7 +73,8 @@
                 <p>Last Name: {{order.lastName}}</p>
                 <p>Phone Number: {{order.phoneNumber}}</p>
             </div>
-            <button v-on:click="placeOrder">Place Order</button>
+            <button v-if="validateFormInput" v-on:click="placeOrder">Place Order</button>
+            <button v-else disabled>Place Order</button>
         </div>
     </div>
     <script src="app.js"></script>
