@@ -3,7 +3,12 @@ var courseApp = new Vue({
     data: {
         courses: courses,
         showCourses: true,
-        cart: []
+        cart: [],
+        order: {
+            firstName: '',
+            lastName: '',
+            phoneNumber: ''
+        }
     },
     methods: {
         toggleShowCourses() {
@@ -15,6 +20,9 @@ var courseApp = new Vue({
         },
         countSpacesAvailable(course) {
             return course.spaces > 0
+        },
+        placeOrder() {
+            alert('order has been placed')
         }
     },
     computed: {

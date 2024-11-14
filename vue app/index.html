@@ -46,6 +46,23 @@
         <!-- Checkout -->
         <div v-else>
             <h2>Checkout</h2>
+            <!-- form for checkout -->
+            <div>
+                <strong>First Name:</strong>
+                <input v-model.trim="order.firstName"/>
+                <strong>Last Name:</strong>
+                <input v-model.trim="order.lastName"/>
+                <strong>Phone Number:</strong>
+                <input v-model.number="order.phoneNumber"/>
+            </div>
+            <!-- order details -->
+            <div>
+                <h3><strong>Order Details</strong></h3>
+                <p>First Name: {{order.firstName}}</p>
+                <p>Last Name: {{order.lastName}}</p>
+                <p>Phone Number: {{order.phoneNumber}}</p>
+            </div>
+            <button v-on:click="placeOrder">Place Order</button>
         </div>
     </div>
     <script src="app.js"></script>
