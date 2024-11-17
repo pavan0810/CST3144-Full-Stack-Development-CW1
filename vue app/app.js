@@ -14,17 +14,17 @@ var courseApp = new Vue({
         toggleShowCourses() {
             this.showCourses = !this.showCourses
         },
-        addToCart(course) {
+        addToCartButton(course) {
             this.cart.push(course)
             course.spaces -= 1
         },
         countSpacesAvailable(course) {
             return course.spaces > 0
         },
-        placeOrder() {
+        placeOrderButton() {
             alert('order has been placed')
         },
-        removeCourse(course){
+        removeCourseFromCart(course){
             const index = this.cart.findIndex(item => item.id == course.id)
             course.spaces += 1
             this.cart.splice(index, 1)

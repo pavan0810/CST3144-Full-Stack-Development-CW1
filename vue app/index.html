@@ -35,7 +35,7 @@
                 <p>Price: {{course.price}}</p>
                 <p>Location: {{course.location}}</p>
                 <p>Spaces: {{course.spaces}}</p>
-                <button v-if="countSpacesAvailable(course)" v-on:click="addToCart(course)">Add To Cart</button>
+                <button v-if="countSpacesAvailable(course)" v-on:click="addToCartButton(course)">Add To Cart</button>
                 <div v-else>
                     <button disabled> Add To Cart</button>
                     <span>No more spaces available</span>
@@ -55,7 +55,7 @@
                 <p>Price: {{course.price}}</p>
                 <p>Location: {{course.location}}</p>
                 <p>Spaces: {{course.spaces}}</p>
-                <button v-on:click="removeCourse(course)">Remove</button>
+                <button v-on:click="removeCourseFromCart(course)">Remove</button>
             </div>
             <!-- form for checkout -->
             <div>
@@ -73,7 +73,7 @@
                 <p>Last Name: {{order.lastName}}</p>
                 <p>Phone Number: {{order.phoneNumber}}</p>
             </div>
-            <button v-if="validateFormInput" v-on:click="placeOrder">Place Order</button>
+            <button v-if="validateFormInput" v-on:click="placeOrderButton">Place Order</button>
             <button v-else disabled>Place Order</button>
         </div>
     </div>
