@@ -24,8 +24,10 @@ var courseApp = new Vue({
         placeOrder() {
             alert('order has been placed')
         },
-        removeCourse(){
-
+        removeCourse(course){
+            const index = this.cart.findIndex(item => item.id == course.id)
+            course.spaces += 1
+            this.cart.splice(index, 1)
         }
     },
     computed: {
