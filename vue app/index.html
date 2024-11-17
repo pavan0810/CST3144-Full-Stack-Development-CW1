@@ -27,6 +27,26 @@
         <!-- All courses available -->
         <div v-if="showCourses">
             <h2>Courses</h2>
+            <!-- sorting buttons -->
+            <div>
+              <p>
+                  <input type="radio" id="subject" v-model="sortingProperty" value="subject"/>
+                  <label for="subject">Subject</label>
+                  <input type="radio" id="location" v-model="sortingProperty" value="location"/>
+                  <label for="location">Location</label>
+                  <input type="radio" id="price" v-model="sortingProperty" value="price"/>
+                  <label for="price">Price</label>
+                  <input type="radio" id="spaces" v-model="sortingProperty" value="spaces"/>
+                  <label for="spaces">Spaces</label>
+              </p>
+              <p>
+                <input type="radio" id="ascending" v-model="sortBy" value="ascending"/>
+                <label for="ascending">Ascending</label>
+                <input type="radio" id="descending" v-model="sortBy" value="descending"/>
+                <label for="descending">Descending</label>
+              </p>
+              <button v-on:click="sortCourses">Sort</button>
+            </div>
             <div v-for="course in courses">
                 <figure>
                     <img v-bind:src="course.image" width="300" height="200"/>

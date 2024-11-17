@@ -13,7 +13,7 @@ let courses = [
         location:"Rose Hill",
         price: 1500,
         image: "../images/physics_class.jpg",
-        spaces: 10
+        spaces: 3
     },
     {
         id: 3,
@@ -21,6 +21,6 @@ let courses = [
         location:"Rose Belle",
         price: 450,
         image: "../images/english_class.jpg",
-        spaces: 10
+        spaces: 7
     }
 ]
