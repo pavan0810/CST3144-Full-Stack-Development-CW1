@@ -1,7 +1,7 @@
 var http = require('http');
 var express = require('express');
 var cors = require('cors');
-
+var cart = []
 var courses = [
     {
         id: 1,
@@ -31,6 +31,7 @@ var courses = [
 
 var app = express();
 app.use(cors());
+app.use(express.json());
 
 app.use(function(request, response, next){
     console.log("Request URL: " + request.url);
@@ -42,7 +43,12 @@ app.get("/getCourses", (req, res) => {
     res.send(courses);
 });
 
-// app.post();
+app.post("/addCourseToCart", (req, res) => {
+    cart.push(req.body);
+    console.log(cart);
+    res.json("Course added to cart successfully!");
+});
+
 // app.put();
 var server = http.createServer(app);
 server.listen(3000, () => {

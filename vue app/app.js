@@ -14,22 +14,31 @@ var courseApp = new Vue({
     },
     methods: {
         toggleShowCourses() {
-            this.showCourses = !this.showCourses
+            this.showCourses = !this.showCourses;
         },
-        addToCartButton(course) {
-            this.cart.push(course)
-            course.spaces -= 1
+        async addToCartButton(course) {
+            this.cart.push(course);
+            course.spaces -= 1;
+            const response = await fetch('http://localhost:3000/addCourseToCart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(course)
+            });
+            const result = await response.json();
+            console.log(result);
         },
         countSpacesAvailable(course) {
-            return course.spaces > 0
+            return course.spaces > 0;
         },
         placeOrderButton() {
-            alert('order has been placed')
+            alert('order has been placed');
         },
         removeCourseFromCart(course){
-            const index = this.cart.findIndex(item => item.id == course.id)
-            course.spaces += 1
-            this.cart.splice(index, 1)
+            const index = this.cart.findIndex(item => item.id == course.id);
+            course.spaces += 1;
+            this.cart.splice(index, 1);
         },
         sortCourses() {
             var property = this.sortingProperty
@@ -50,24 +59,24 @@ var courseApp = new Vue({
     },
     computed: {
         countItemInCart() {
-            return this.cart.length || ""
+            return this.cart.length || "";
         },
         validateFormInput() {
-            var nameRegEx = /^[a-zA-Z\s-]+$/
-            var numbersOnlyRegex = /^[0-9]+$/
+            var nameRegEx = /^[a-zA-Z\s-]+$/;
+            var numbersOnlyRegex = /^[0-9]+$/;
             if(this.order.firstName === "" || this.order.lastName === "" || this.order.phoneNumber === "") {
-                return false
+                return false;
             }
 
             if(nameRegEx.test(this.order.firstName) && nameRegEx.test(this.order.lastName) && 
                 numbersOnlyRegex.test(this.order.phoneNumber)) {
-                return true
+                return true;
             }
-            return false
+            return false;
         }
     },
     created: async function(){
-        const response = await fetch('http://localhost:3000/getCourses')
-        this.courses = await response.json()
+        const response = await fetch('http://localhost:3000/getCourses');
+        this.courses = await response.json();
     }
 });
