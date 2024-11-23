@@ -1,7 +1,7 @@
 var courseApp = new Vue({
     el: '#courses',
     data: {
-        courses: courses,
+        courses: [],
         showCourses: true,
         cart: [],
         order: {
@@ -65,5 +65,9 @@ var courseApp = new Vue({
             }
             return false
         }
+    },
+    created: async function(){
+        const response = await fetch('http://localhost:3000/getCourses')
+        this.courses = await response.json()
     }
 });
