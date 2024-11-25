@@ -19,33 +19,6 @@ const client = new MongoClient(uri, { serverApi: ServerApiVersion.v1 });
 var db = client.db(dbName);
 
 var cart = []
-var courses = [
-    {
-        id: 1,
-        subject:"Mathematics",
-        location:"Curepipe",
-        price: 700,
-        image: "../images/maths_class.jpg",
-        spaces: 10
-    },
-    {
-        id: 2,
-        subject:"Physics",
-        location:"Rose Hill",
-        price: 1500,
-        image: "../images/physics_class.jpg",
-        spaces: 3
-    },
-    {
-        id: 3,
-        subject:"English",
-        location:"Rose Belle",
-        price: 450,
-        image: "../images/english_class.jpg",
-        spaces: 7
-    }
-]
-
 var app = express();
 app.use(cors());
 app.use(express.json());
@@ -81,7 +54,7 @@ async function dbSearch(query, req) {
     if(query === "all") {
         query = {};
     }
-    
+
     const results = await req.collection.find(query).toArray();
     for(let i=0;i < results.length;i++) {
         results[i]._id = results[i]._id.toString();
