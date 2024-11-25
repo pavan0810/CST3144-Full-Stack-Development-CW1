@@ -56,13 +56,18 @@ app.use(function(request, response, next){
     next();
 });
 
-app.get("/getCourses", (req, res) => {
-    res.send(courses);
+app.param("collectionName", (req, res, next, collectionName) => {
+    req.collection = db.collection(collectionName);
+    next();
+});
+
+app.get("/getCourses/:collectionName/:query", async (req, res) => {
+    var courses = await dbSearch(req.params.query, req);
+    res.json(courses);
 });
 
 app.post("/addCourseToCart", (req, res) => {
     cart.push(req.body);
-    console.log(cart);
     res.json("Course added to cart successfully!");
 });
 
@@ -71,3 +76,15 @@ var server = http.createServer(app);
 server.listen(3000, () => {
     console.log("Server listening on Port 3000");
 });
+
+async function dbSearch(query, req) {
+    if(query === "all") {
+        query = {};
+    }
+    
+    const results = await req.collection.find(query).toArray();
+    for(let i=0;i < results.length;i++) {
+        results[i]._id = results[i]._id.toString();
+    }
+    return results;
+}

@@ -76,7 +76,7 @@ var courseApp = new Vue({
         }
     },
     created: async function(){
-        const response = await fetch('http://localhost:3000/getCourses');
+        const response = await fetch('http://localhost:3000/getCourses/Courses/all');
         this.courses = await response.json();
     }
 });
