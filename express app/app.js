@@ -18,7 +18,6 @@ const uri = dbPrefix + dbUsername + ":" + dbPwd + dbUrl + dbParams;
 const client = new MongoClient(uri, { serverApi: ServerApiVersion.v1 });
 var db = client.db(dbName);
 
-var cart = []
 var app = express();
 app.use(cors());
 app.use(express.json());
@@ -39,9 +38,12 @@ app.get("/getCourses/:collectionName/:query", async (req, res) => {
     res.json(courses);
 });
 
-app.post("/addCourseToCart", (req, res) => {
-    cart.push(req.body);
-    res.json("Course added to cart successfully!");
+app.post("/placeOrder", async (req, res) => {
+    var order = req.body;
+    var collection = db.collection("OrderInfo");
+    const result = await collection.insertOne(order);
+    console.log(result);
+    res.json({message: "Order placed successfully!"});
 });
 
 // app.put();
