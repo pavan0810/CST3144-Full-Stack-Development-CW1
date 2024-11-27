@@ -54,15 +54,33 @@ var courseApp = new Vue({
                 lessons: tuitionsOrdered
             };
 
-            const response = await fetch('http://localhost:3000/placeOrder', {
+            for(var i = 0;i < tuitionsOrdered.length;i++) {
+                var query = { id: tuitionsOrdered[i].lessonId };
+                query = encodeURIComponent(JSON.stringify(query));
+                const tuition = await fetch(`http://localhost:3000/getCourses/Courses/${query}`);
+                var result = await tuition.json();
+                var space = result[0].spaces - tuitionsOrdered[i].NumberOrdered;
+                var requestURL = 'http://localhost:3000/updateDocument/Courses/' + tuitionsOrdered[i].lessonId;
+                var responseUpdateSpaces = await fetch(requestURL, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({spaces : space})
+                });
+                const resultUpdateSpaces = await responseUpdateSpaces.json();
+                console.log(resultUpdateSpaces);
+            }
+
+            const responsePlaceOrder = await fetch('http://localhost:3000/placeOrder', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(order)
             });
-            const result = await response.json();
-            alert(result.message);
+            const resultPlaceOrder = await responsePlaceOrder.json();
+            alert(resultPlaceOrder.message);
         },
         removeCourseFromCart(course){
             const index = this.cart.findIndex(item => item.id == course.id);
@@ -109,7 +127,9 @@ var courseApp = new Vue({
         }
     },
     created: async function(){
-        const response = await fetch('http://localhost:3000/getCourses/Courses/all');
+        var query = {};
+        query = encodeURIComponent(JSON.stringify(query));
+        const response = await fetch(`http://localhost:3000/getCourses/Courses/${query}`);
         this.courses = await response.json();
     }
 });

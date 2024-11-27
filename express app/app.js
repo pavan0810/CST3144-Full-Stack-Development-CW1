@@ -34,7 +34,8 @@ app.param("collectionName", (req, res, next, collectionName) => {
 });
 
 app.get("/getCourses/:collectionName/:query", async (req, res) => {
-    var courses = await dbSearch(req.params.query, req);
+    const query = JSON.parse(decodeURIComponent(req.params.query));
+    var courses = await dbSearch(query, req);
     res.json(courses);
 });
 
@@ -46,17 +47,22 @@ app.post("/placeOrder", async (req, res) => {
     res.json({message: "Order placed successfully!"});
 });
 
-// app.put();
+app.put("/updateDocument/:collectionName/:id", async (req, res) => {
+    var lessonId = parseInt(req.params.id);
+    var fieldToUpdate = req.body;
+    const result = await req.collection.updateOne(
+        {id : lessonId},
+        {$set : fieldToUpdate}
+    );
+    res.json("Lesson updated");
+});
+
 var server = http.createServer(app);
 server.listen(3000, () => {
     console.log("Server listening on Port 3000");
 });
 
 async function dbSearch(query, req) {
-    if(query === "all") {
-        query = {};
-    }
-
     const results = await req.collection.find(query).toArray();
     for(let i=0;i < results.length;i++) {
         results[i]._id = results[i]._id.toString();
