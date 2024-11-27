@@ -40,7 +40,11 @@ var courseApp = new Vue({
         async placeOrderButton() {
             var tuitionsOrdered = [];
             for(var i = 0; i < this.cart.length;i++) {
-                tuitionsOrdered.push({[courseApp.cart[i].id] : courseApp.cart[i].numberOrdered});
+                tuitionsOrdered.push({
+                    lessonId: courseApp.cart[i].id,
+                    NumberOrdered: courseApp.cart[i].numberOrdered
+
+                });
             }
 
             var order = {
