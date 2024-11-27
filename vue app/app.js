@@ -3,6 +3,7 @@ var courseApp = new Vue({
     data: {
         courses: [],
         showCourses: true,
+        itemsInCart: 0,
         cart: [],
         order: {
             firstName: '',
@@ -31,14 +32,15 @@ var courseApp = new Vue({
                 this.cart.push(course);
             }
             course.spaces -= 1;
+            this.itemsInCart += 1;
         },
         countSpacesAvailable(course) {
             return course.spaces > 0;
         },
         async placeOrderButton() {
             var tuitionsOrdered = [];
-            for(tuition in this.cart) {
-                tuitionsOrdered.push(tuition.id);
+            for(var i = 0; i < this.cart.length;i++) {
+                tuitionsOrdered.push({[courseApp.cart[i].id] : courseApp.cart[i].numberOrdered});
             }
 
             var order = {
@@ -61,6 +63,7 @@ var courseApp = new Vue({
         removeCourseFromCart(course){
             const index = this.cart.findIndex(item => item.id == course.id);
             course.spaces += 1;
+            this.itemsInCart -= 1;
             this.cart[index].numberOrdered -= 1;
             if(this.cart[index].numberOrdered == 0) {
                 this.cart.splice(index, 1);
