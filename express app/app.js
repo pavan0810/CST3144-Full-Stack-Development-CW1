@@ -35,7 +35,7 @@ app.param("collectionName", (req, res, next, collectionName) => {
 
 app.get("/getCourses/:collectionName/:query", async (req, res) => {
     const query = JSON.parse(decodeURIComponent(req.params.query));
-    var courses = await dbSearch(query, req);
+    var courses = await dbSearch(query, req.collection);
     res.json(courses);
 });
 
@@ -57,13 +57,28 @@ app.put("/updateDocument/:collectionName/:id", async (req, res) => {
     res.json("Lesson updated");
 });
 
+app.get("/search/:collectionName/:searchString", async (req, res) => {
+    const courses = await req.collection.aggregate([
+        {
+          $search: {
+            index: 'SearchCourse',
+            text: {
+              query: req.params.searchString,
+              path: ['subject', 'location'],
+            },
+          },
+        },
+    ]).toArray();
+    res.json(courses);
+});
+
 var server = http.createServer(app);
 server.listen(3000, () => {
     console.log("Server listening on Port 3000");
 });
 
-async function dbSearch(query, req) {
-    const results = await req.collection.find(query).toArray();
+async function dbSearch(query, collection) {
+    const results = await collection.find(query).toArray();
     for(let i=0;i < results.length;i++) {
         results[i]._id = results[i]._id.toString();
     }
