@@ -90,6 +90,9 @@ var courseApp = new Vue({
             if(this.cart[index].numberOrdered == 0) {
                 this.cart.splice(index, 1);
             }
+            if(this.cart.length == 0) {
+                this.toggleShowCourses();
+            }
         },
         sortCourses() {
             var property = this.sortingProperty
