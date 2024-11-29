@@ -112,8 +112,17 @@ var courseApp = new Vue({
             }
         },
         async search() {
-            const response = await fetch(`http://localhost:3000/search/${this.searchString}`);
-            this.cart = response.json();
+            if(this.searchString == '') {
+                var query = {};
+                query = encodeURIComponent(JSON.stringify(query));
+                const response = await fetch(`http://localhost:3000/getCourses/Courses/${query}`);
+                this.courses = await response.json();
+            } else {
+                const response = await fetch(`http://localhost:3000/search/Courses/${this.searchString}`);
+                if(response.ok) {
+                    this.courses = await response.json();
+                }
+            }
         }   
     },
     computed: {
