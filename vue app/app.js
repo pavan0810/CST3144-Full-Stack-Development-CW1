@@ -82,6 +82,8 @@ var courseApp = new Vue({
             });
             const resultPlaceOrder = await responsePlaceOrder.json();
             alert(resultPlaceOrder.message);
+            this.cart = [];
+            this.toggleShowCourses();
         },
         removeCourseFromCart(course){
             const index = this.cart.findIndex(item => item.id == course.id);
