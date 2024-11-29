@@ -11,7 +11,8 @@ var courseApp = new Vue({
             phoneNumber: ''
         },
         sortingProperty: 'subject',
-        sortBy: 'ascending'
+        sortBy: 'ascending',
+        searchString: ''
     },
     methods: {
         toggleShowCourses() {
@@ -106,7 +107,11 @@ var courseApp = new Vue({
                     return 0
                 });
             }
-        }
+        },
+        async search() {
+            const response = await fetch(`http://localhost:3000/search/${this.searchString}`);
+            this.cart = response.json();
+        }   
     },
     computed: {
         countItemInCart() {

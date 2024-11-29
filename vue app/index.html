@@ -46,6 +46,7 @@
               </p>
               <button v-on:click="sortCourses">Sort</button>
             </div>
+            <input v-on:keydown="search" v-model="searchString" id="search"/>
             <div v-for="course in courses">
                 <figure>
                     <img v-bind:src="course.image" width="300" height="200"/>
