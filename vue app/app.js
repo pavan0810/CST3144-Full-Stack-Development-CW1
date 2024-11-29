@@ -117,7 +117,7 @@ var courseApp = new Vue({
         },
         validateFormInput() {
             var nameRegEx = /^[a-zA-Z\s-]+$/;
-            var numbersOnlyRegex = /^[0-9]+$/;
+            var numbersOnlyRegex = /^\d{8}$/;
             if(this.order.firstName === "" || this.order.lastName === "" || this.order.phoneNumber === "") {
                 return false;
             }
