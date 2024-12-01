@@ -83,6 +83,7 @@ var courseApp = new Vue({
             const resultPlaceOrder = await responsePlaceOrder.json();
             alert(resultPlaceOrder.message);
             this.cart = [];
+            this.itemsInCart = 0;
             this.toggleShowCourses();
         },
         removeCourseFromCart(course){
