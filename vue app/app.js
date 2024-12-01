@@ -58,10 +58,10 @@ var courseApp = new Vue({
             for(var i = 0;i < tuitionsOrdered.length;i++) {
                 var query = { id: tuitionsOrdered[i].lessonId };
                 query = encodeURIComponent(JSON.stringify(query));
-                const tuition = await fetch(`http://localhost:3000/getCourses/Courses/${query}`);
+                const tuition = await fetch(`https://cst3144-full-stack-development-cw1.onrender.com/getCourses/Courses/${query}`);
                 var result = await tuition.json();
                 var space = result[0].spaces - tuitionsOrdered[i].NumberOrdered;
-                var requestURL = 'http://localhost:3000/updateDocument/Courses/' + tuitionsOrdered[i].lessonId;
+                var requestURL = 'https://cst3144-full-stack-development-cw1.onrender.com/updateDocument/Courses/' + tuitionsOrdered[i].lessonId;
                 var responseUpdateSpaces = await fetch(requestURL, {
                     method: 'PUT',
                     headers: {
@@ -73,7 +73,7 @@ var courseApp = new Vue({
                 console.log(resultUpdateSpaces);
             }
 
-            const responsePlaceOrder = await fetch('http://localhost:3000/placeOrder', {
+            const responsePlaceOrder = await fetch('https://cst3144-full-stack-development-cw1.onrender.com/placeOrder', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -118,10 +118,10 @@ var courseApp = new Vue({
             if(this.searchString == '') {
                 var query = {};
                 query = encodeURIComponent(JSON.stringify(query));
-                const response = await fetch(`http://localhost:3000/getCourses/Courses/${query}`);
+                const response = await fetch(`https://cst3144-full-stack-development-cw1.onrender.com/getCourses/Courses/${query}`);
                 this.courses = await response.json();
             } else {
-                const response = await fetch(`http://localhost:3000/search/Courses/${this.searchString}`);
+                const response = await fetch(`https://cst3144-full-stack-development-cw1.onrender.com/search/Courses/${this.searchString}`);
                 if(response.ok) {
                     this.courses = await response.json();
                 }
@@ -149,7 +149,7 @@ var courseApp = new Vue({
     created: async function(){
         var query = {};
         query = encodeURIComponent(JSON.stringify(query));
-        const response = await fetch(`http://localhost:3000/getCourses/Courses/${query}`);
+        const response = await fetch(`https://cst3144-full-stack-development-cw1.onrender.com/getCourses/Courses/${query}`);
         this.courses = await response.json();
     }
 });
